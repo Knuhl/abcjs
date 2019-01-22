@@ -417,6 +417,42 @@ Renderer.prototype.outputFreeText = function (text) {
 };
 
 /**
+ * Output text defined between %%beginchordpro and %%endchordpro.
+ * @param {array} chordPro
+ */
+Renderer.prototype.outputChordPro = function (chordPro) {
+	if(chordPro) {
+		this.skipSpaceY();
+		
+		var x = this.padding.left;
+		for (var i = 0; i < chordPro.length; i++)
+		{
+			var dimChord = this.outputTextIf(x, chordPro[i].name, 'chordprochordfont', 'defined-text', 0, 0, "start");
+			var dimLyrics = this.outputTextIf(x, chordPro[i].lyrics, 'chordprolyricsfont', 'defined-text', 0, null, "start");
+			
+			console.log("Chord: '" + chordPro[i].name + "' Lyrics: '" + chordPro[i].lyrics + "' Endline: " + chordPro[i].endline);
+			
+			if (chordPro[i].endline === true) {
+				x = this.padding.left;
+				this.skipSpaceY();
+			}
+			else {
+				this.moveY(-dimChord[1]);
+				//this.moveY(-dimLyrics[1]);
+				
+				if(dimChord[0] > dimLyrics[0])
+					x += dimChord[0];
+				else 
+					x += dimLyrics[0];
+				//x += 5;
+			}
+		}
+		
+		this.skipSpaceY();
+	}
+};
+
+/**
  * Output an extra subtitle that is defined later in the tune.
  */
 Renderer.prototype.outputSubtitle = function (width, subtitle) {

@@ -624,6 +624,7 @@ var ParserLint = function() {
 					source: { type: "string", optional: true },
 					tempo: { type: "object", optional: true, properties: tempoProperties },
 					textBlock: { type: "string", optional: true },
+					chordProBlock: { type: "string", optional: true },
 					title: { type: "string", optional: true },
 					transcription: { type: "string", optional: true },
 					unalignedWords: { type: 'array', optional: true, items: textFieldProperties },

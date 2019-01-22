@@ -774,6 +774,9 @@ var parseDirective = {};
 			case "begintext":
 				multilineVars.inTextBlock = true;
 				break;
+			case "beginchordpro":
+				multilineVars.inChordProBlock = true;
+				break;
 			case "continueall":
 				multilineVars.continueall = true;
 				break;

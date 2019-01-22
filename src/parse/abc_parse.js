@@ -71,9 +71,11 @@ var Parse = function() {
 			this.currBarNumber = 1;
 			this.barCounter = {};
 			this.inTextBlock = false;
+			this.inChordProBlock = false;
 			this.inPsBlock = false;
 			this.ignoredDecorations = [];
 			this.textBlock = "";
+			this.chordProBlock = "";
 			this.score_is_present = false;	// Can't have original V: lines when there is the score directive
 			this.inEnding = false;
 			this.inTie = [false];
@@ -445,6 +447,54 @@ var Parse = function() {
 		return ret;
 	};
 
+	var parseChordPro = function(chordProText) {
+		
+		var i = 0;
+		var ret;
+		var chordLyricsPairs = [];
+		
+		while (i < chordProText.length) {
+			ret = letter_to_chord(chordProText, i);
+			if (ret[0] > 0) {
+				var chordName = tokenizer.translateString(ret[1]);
+				chordName = chordName.replace(/;/g, "\n");
+				
+				if(chordLyricsPairs.length > 0 && 
+				   chordLyricsPairs[chordLyricsPairs.length - 1].name === "" && 
+				   chordLyricsPairs[chordLyricsPairs.length - 1].lyrics === "") {
+					//last chord was pushed empty because of newline, new chord directly after newline, use empty chord
+					chordLyricsPairs[chordLyricsPairs.length - 1].name = chordName;
+				}
+				else {
+					chordLyricsPairs.push({name: chordName, lyrics: ""});
+				}
+				
+				i += ret[0];
+			}
+			else {
+				switch (chordProText.charAt(i)) {
+					case '\n':
+						if (chordLyricsPairs.length > 0)
+						{
+							chordLyricsPairs[chordLyricsPairs.length - 1].endline = true;
+							chordLyricsPairs.push({name: "", lyrics: ""});
+						}
+						break;
+					default:
+						if (chordLyricsPairs.length < 1)
+						{
+							chordLyricsPairs.push({name: "", lyrics: ""});
+						}
+						chordLyricsPairs[chordLyricsPairs.length - 1].lyrics += chordProText.charAt(i);
+						break;
+				}
+				i++;
+			}
+		}
+		
+		return chordLyricsPairs;
+	}
+	
 	var addWords = function(line, words) {
 		if (!line) { warn("Can't add words before the first line of music", line, 0); return; }
 		words = parseCommon.strip(words);
@@ -1654,6 +1704,20 @@ var Parse = function() {
 							multilineVars.textBlock += ' ' + line.substring(2);
 						else
 							multilineVars.textBlock += ' ' + line;
+					}
+				} else if (multilineVars.inChordProBlock) {
+					if (parseCommon.startsWith(line, "%%endchordpro")) {
+						//tune.addMetaText("textBlock", multilineVars.textBlock);
+						//tune.addText(multilineVars.textBlock);
+						var chords = parseChordPro(multilineVars.chordProBlock);
+						tune.addChordPro(chords);
+						multilineVars.inChordProBlock = false;
+					}
+					else {
+						if (parseCommon.startsWith(line, "%%"))
+							multilineVars.chordProBlock += '\n' + line.substring(2);
+						else
+							multilineVars.chordProBlock += '\n' + line;
 					}
 				} else if (multilineVars.inPsBlock) {
 					if (parseCommon.startsWith(line, "%%endps")) {

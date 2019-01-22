@@ -66,6 +66,7 @@ TextPrinter.prototype.printHeader = function() {
     //TODO part order
     //TODO Q tempo
     //TODO textBlock
+    //TODO chordProBlock
     this.printHeaderLine("NULL","L","1/8"); //TODO L
 
     this.printHeaderLine("NULL","M",this.getMeterString(this.abctune.lines[0].staff[0].meter));

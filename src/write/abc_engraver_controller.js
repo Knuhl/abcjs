@@ -238,6 +238,8 @@ EngraverController.prototype.engraveTune = function (abctune, tuneNumber) {
 			this.engraveStaffLine(abcLine.staffGroup);
 		} else if (abcLine.subtitle && line !== 0) {
 			this.renderer.outputSubtitle(this.width, abcLine.subtitle);
+		} else if (abcLine.chordPro !== undefined) {
+			this.renderer.outputChordPro(abcLine.chordPro);
 		} else if (abcLine.text !== undefined) {
 			this.renderer.outputFreeText(abcLine.text);
 		}

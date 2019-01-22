@@ -810,6 +810,10 @@ var Tune = function() {
 		this.pushLine({text: [{text: str, center: true }]});
 	};
 
+	this.addChordPro = function(chords) {
+		this.pushLine({chordPro: chords});
+	};
+
 	this.containsNotes = function(voice) {
 		for (var i = 0; i < voice.length; i++) {
 			if (voice[i].el_type === 'note' || voice[i].el_type === 'bar')
