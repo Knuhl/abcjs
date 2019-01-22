@@ -20,18 +20,37 @@
 <body>
 <textarea id="abc" cols="80" rows="15">
 X: 1
-X: 1
-T: ASD
+T: ChordPro + ABC Test
 M: 4/4
 L: 1/4
-R: reel
-K: E
-D/|:EB{c}BA|"F"B2 EB:|
+R: rhythm
+Q: 100
+K: C
+%%staves {(1 2) 3 4}
+V:1 clef=treble name="Vocals 1" sname="V1"
+V:2 clef=treble name="Vocals 2" sname="V2"
+V:3 clef=treble name="Piano R" sname="PR"
+V:4 clef=treble name="Piano L" sname="PL"
+[V:1] y//|:"C"EFAB|"G"B2 dF:|
+w:1:~ha ha ha ha haa ha ha
+w:2:~ha ha ha ha haa ha ha
+[V:2] B,//|:"C"CD{E}FG|"G"G2 BD:|
+[V:3] z//|:"C"GA cd|"G"d2 fA:|
+[V:4] z//|:"C"[Cc][Dd][Ff][Gg]|"G"[Gg]2 [Bb][Dd]:|
+w:ha ha ha ha haa ha ha
+W:Additional Lyrics
 %%beginchordpro
-"E"Meisterhaft. Ohne "C#m"jeden "G#m"Vergleich.
-"E"Wunderbar. Bleib"C#m"st du mir "G#m"zugewandt.
+"E"Foo.    Bar   "C#m"foo"G#m"bar.
+"E"Foo. Bar"C#m"foo foo bar "G#m"foo.
 %%endchordpro
-D/|:EB{c}BA|"F"B2 EB:|
+[V:1] y//|:"C"EFAB|"G"B2 dF:|
+[V:2] B,//|:"C"CD{E}FG|"G"G2 BD:|
+[V:3] z//|:"C"GA cd|"G"d2 fA:|
+[V:4] z//|:"C"[Cc][Dd][Ff][Gg]|"G"[Gg]2 [Bb][Dd]:|
+%%beginchordpro
+"E"Foo.    Bar   "C#m"foo"G#m"bar.
+"E"Foo. Bar"C#m"foo foo bar "G#m"foo.
+%%endchordpro
 </textarea>
 
 <div id="warnings"></div>
