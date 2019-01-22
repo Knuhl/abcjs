@@ -1,3 +1,15 @@
+# Additions
+## Added [ChordPro](https://github.com/ChordPro/chordpro) directive
+
+Everything between %%startchordpro and %%endchordpro will be without notes - for Chord Sheet Generation
+
+```
+%%startchordpro
+"C"Some.. Times in our "F"Lives
+We all have "C"pain
+%%endchordpro
+```
+
 ![abcjs](https://cdn.rawgit.com/paulrosen/abcjs/master/docs/abcjs_comp_extended_08.svg)
 
 # Javascript library for rendering standard music notation in a browser.
@@ -98,15 +110,15 @@ If you are looking at someone else's website and see ABC on the page and want to
 
 Here are the latest versions. You can just download one of these:
 
-- [Basic](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_basic_5.6.2-min.js)
+- [Basic](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_basic_5.6.3-min.js)
 
-- [Basic+MIDI](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_midi_5.6.2-min.js)
+- [Basic+MIDI](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_midi_5.6.3-min.js)
 
-- [Plugin](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin_5.6.2-min.js)
+- [Plugin](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin_5.6.3-min.js)
 
-- [Plugin+MIDI](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin-midi_5.6.2-min.js)
+- [Plugin+MIDI](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin-midi_5.6.3-min.js)
 
-- [Greasemonkey script](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin_5.6.2.user.js)
+- [Greasemonkey script](https://raw.github.com/paulrosen/abcjs/master/bin/abcjs_plugin_5.6.3.user.js)
 
 - [Styles for the MIDI control](https://raw.github.com/paulrosen/abcjs/master/abcjs-midi.css)
 
