@@ -497,6 +497,8 @@ var ParserLint = function() {
 			systemsep: { type: "number", optional: true },
 			tempofont: fontType,
 			textfont: fontType,
+			chordprochordfont: fontType,
+			chordprolyricsfont: fontType,
 			textspace: { type: "number", optional: true },
 			titlefont: fontType,
 			titleformat: { type: "string", optional: true },

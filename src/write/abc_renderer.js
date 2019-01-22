@@ -427,10 +427,8 @@ Renderer.prototype.outputChordPro = function (chordPro) {
 		var x = this.padding.left;
 		for (var i = 0; i < chordPro.length; i++)
 		{
-			var dimChord = this.outputTextIf(x, chordPro[i].name, 'chordprochordfont', 'defined-text', 0, 0, "start");
-			var dimLyrics = this.outputTextIf(x, chordPro[i].lyrics, 'chordprolyricsfont', 'defined-text', 0, null, "start");
-			
-			console.log("Chord: '" + chordPro[i].name + "' Lyrics: '" + chordPro[i].lyrics + "' Endline: " + chordPro[i].endline);
+			var dimChord = this.outputTextIf(x, chordPro[i].name, 'chordprochordfont', 'chordpro-chord', 0, 0, "start");
+			var dimLyrics = this.outputTextIf(x, chordPro[i].lyrics, 'chordprolyricsfont', 'chordpro-lyrics', 0, null, "start");
 			
 			if (chordPro[i].endline === true) {
 				x = this.padding.left;
@@ -438,16 +436,15 @@ Renderer.prototype.outputChordPro = function (chordPro) {
 			}
 			else {
 				this.moveY(-dimChord[1]);
-				//this.moveY(-dimLyrics[1]);
-				
+								
 				if(dimChord[0] > dimLyrics[0])
 					x += dimChord[0];
 				else 
 					x += dimLyrics[0];
-				//x += 5;
 			}
 		}
 		
+		this.skipSpaceY();
 		this.skipSpaceY();
 	}
 };
@@ -763,7 +760,7 @@ Renderer.prototype.getFontAndAttr = function(type, klass) {
 		font = this.abctune.formatting[type];
 		// Raphael deliberately changes the font units to pixels for some reason, so we need to change points to pixels here.
 		if (font)
-			font = {face: font.face, size: font.size * 4 / 3, decoration: font.decoration, style: font.style, weight: font.weight, box: font.box};
+			font = {face: font.face, size: font.size * 4 / 3, decoration: font.decoration, style: font.style, weight: font.weight, box: font.box, preserveWhitespace: font.preserveWhitespace};
 		else
 			font = {face: "Arial", size: 12 * 4 / 3, decoration: "underline", style: "normal", weight: "normal"};
 	} else
@@ -772,6 +769,10 @@ Renderer.prototype.getFontAndAttr = function(type, klass) {
 	var attr = {"font-size": font.size, 'font-style': font.style,
 		"font-family": font.face, 'font-weight': font.weight, 'text-decoration': font.decoration,
 		'class': this.addClasses(klass) };
+
+	if (font.preserveWhitespace === true)
+		attr["style"] = "white-space:pre";
+
 	attr.font = "";	// There is a spurious font definition that is put on all text elements. This overwrites it.
 	return { font: font, attr: attr };
 };

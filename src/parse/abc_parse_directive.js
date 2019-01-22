@@ -27,6 +27,8 @@ var parseDirective = {};
 		multilineVars.partsfont  = { face: "\"Times New Roman\"", size: 15, weight: "normal", style: "normal", decoration: "none" };
 		multilineVars.repeatfont  = { face: "\"Times New Roman\"", size: 13, weight: "normal", style: "normal", decoration: "none" };
 		multilineVars.textfont  = { face: "\"Times New Roman\"", size: 16, weight: "normal", style: "normal", decoration: "none" };
+		multilineVars.chordprochordfont  = { face: "Helvetica", size: 12, weight: "bold", style: "italic", decoration: "none" };
+		multilineVars.chordprolyricsfont  = { face: "Helvetica", size: 12, weight: "normal", style: "normal", decoration: "none", preserveWhitespace: true };
 		multilineVars.tripletfont = {face: "Times", size: 11, weight: "normal", style: "italic", decoration: "none"};
 		multilineVars.vocalfont  = { face: "\"Times New Roman\"", size: 13, weight: "bold", style: "normal", decoration: "none" };
 		multilineVars.wordsfont  = { face: "\"Times New Roman\"", size: 16, weight: "normal", style: "normal", decoration: "none" };
@@ -39,7 +41,7 @@ var parseDirective = {};
 		tune.formatting.footerfont  = { face: "\"Times New Roman\"", size: 12, weight: "normal", style: "normal", decoration: "none" };
 		tune.formatting.headerfont  = { face: "\"Times New Roman\"", size: 12, weight: "normal", style: "normal", decoration: "none" };
 		tune.formatting.voicefont  = { face: "\"Times New Roman\"", size: 13, weight: "bold", style: "normal", decoration: "none" };
-
+		
 		// these are the default fonts for these element types. In the printer, these fonts might change as the tune progresses.
 		tune.formatting.annotationfont  = multilineVars.annotationfont;
 		tune.formatting.gchordfont  = multilineVars.gchordfont;
@@ -49,6 +51,8 @@ var parseDirective = {};
 		tune.formatting.partsfont  = multilineVars.partsfont;
 		tune.formatting.repeatfont  = multilineVars.repeatfont;
 		tune.formatting.textfont  = multilineVars.textfont;
+		tune.formatting.chordprochordfont  = multilineVars.chordprochordfont;
+		tune.formatting.chordprolyricsfont  = multilineVars.chordprolyricsfont;
 		tune.formatting.tripletfont  = multilineVars.tripletfont;
 		tune.formatting.vocalfont  = multilineVars.vocalfont;
 		tune.formatting.wordsfont  = multilineVars.wordsfont;
@@ -832,6 +836,8 @@ var parseDirective = {};
 			case "tripletfont":
 			case "vocalfont":
 			case "textfont":
+			case "chordprochordfont":
+			case "chordprolyricsfont":
 			case "annotationfont":
 			case "historyfont":
 			case "infofont":

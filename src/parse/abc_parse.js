@@ -1697,6 +1697,7 @@ var Parse = function() {
 					if (parseCommon.startsWith(line, "%%endtext")) {
 						//tune.addMetaText("textBlock", multilineVars.textBlock);
 						tune.addText(multilineVars.textBlock);
+						multilineVars.textBlock = "";
 						multilineVars.inTextBlock = false;
 					}
 					else {
@@ -1707,10 +1708,9 @@ var Parse = function() {
 					}
 				} else if (multilineVars.inChordProBlock) {
 					if (parseCommon.startsWith(line, "%%endchordpro")) {
-						//tune.addMetaText("textBlock", multilineVars.textBlock);
-						//tune.addText(multilineVars.textBlock);
 						var chords = parseChordPro(multilineVars.chordProBlock);
 						tune.addChordPro(chords);
+						multilineVars.chordProBlock = "";
 						multilineVars.inChordProBlock = false;
 					}
 					else {
