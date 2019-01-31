@@ -420,30 +420,44 @@ Renderer.prototype.outputFreeText = function (text) {
  * Output text defined between %%beginchordpro and %%endchordpro.
  * @param {array} chordPro
  */
-Renderer.prototype.outputChordPro = function (chordPro) {
-	if(chordPro) {
+Renderer.prototype.outputChordPro = function (chordProLines) {
+	if(chordProLines && chordProLines.length > 0) {
+
 		this.skipSpaceY();
-		
+
 		var x = this.padding.left;
-		for (var i = 0; i < chordPro.length; i++)
+		for (var i = 0; i < chordProLines.length; i++)
 		{
-			var dimChord = this.outputTextIf(x, chordPro[i].name, 'chordprochordfont', 'chordpro-chord', 0, 0, "start");
-			var dimLyrics = this.outputTextIf(x, chordPro[i].lyrics, 'chordprolyricsfont', 'chordpro-lyrics', 0, null, "start");
-			
-			if (chordPro[i].endline === true) {
-				x = this.padding.left;
-				this.skipSpaceY();
+			const currentLine = chordProLines[i];
+			for (var c = 0; c < currentLine.pairs.length; c++) {
+				const pair = currentLine.pairs[c];
+				// print ' ' as chord if there is none in this pair, but there are chords in this line
+				// this only works since there is preserveWhiteSpace = true on the fonts, 
+				// so 'style="white-space: pre"' is added to svg
+				const chordName = ((!pair.chord || pair.chord < 1) && currentLine.hasChords) ? ' ' : pair.chord;
+
+				const dimChord = this.outputTextIf(x, chordName, 'chordprochordfont', 'chordpro-chord', 0, 0, "start");
+				const dimLyrics = this.outputTextIf(x, pair.lyrics, 'chordprolyricsfont', 'chordpro-lyrics', 0, null, "start");
+
+				// if there is another pair in this line
+				if (currentLine.pairs.length > (c + 1)) {
+					// move back up for next pair
+					this.moveY(-dimChord[1]);
+
+					// move to the right depending on the biggest dimension
+					if(dimChord[0] > dimLyrics[0])
+						x += dimChord[0];
+					else 
+						x += dimLyrics[0];
+					// plus a bit
+					x += 7;
+				}
 			}
-			else {
-				this.moveY(-dimChord[1]);
-								
-				if(dimChord[0] > dimLyrics[0])
-					x += dimChord[0];
-				else 
-					x += dimLyrics[0];
-			}
+
+			x = this.padding.left;
+			this.skipSpaceY();
 		}
-		
+
 		this.skipSpaceY();
 		this.skipSpaceY();
 	}

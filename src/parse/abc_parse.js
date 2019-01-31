@@ -448,51 +448,58 @@ var Parse = function() {
 	};
 
 	var parseChordPro = function(chordProText) {
-		
 		var i = 0;
+
+		const resultLines = [];
+		var currentLine = {hasChords: false, pairs: []};
+		var currentChord = '';
+		var currentLyrics = '';
+
+		//skip leading newlines
+		while (i < chordProText.length && chordProText.charAt(i) === '\n') { i++; }
+
 		var ret;
-		var chordLyricsPairs = [];
-		
 		while (i < chordProText.length) {
 			ret = letter_to_chord(chordProText, i);
 			if (ret[0] > 0) {
+				currentLine.hasChords = true;
 				var chordName = tokenizer.translateString(ret[1]);
 				chordName = chordName.replace(/;/g, "\n");
-				
-				if(chordLyricsPairs.length > 0 && 
-				   chordLyricsPairs[chordLyricsPairs.length - 1].name === "" && 
-				   chordLyricsPairs[chordLyricsPairs.length - 1].lyrics === "") {
-					//last chord was pushed empty because of newline, new chord directly after newline, use empty chord
-					chordLyricsPairs[chordLyricsPairs.length - 1].name = chordName;
+
+				if (currentChord.length > 0 || currentLyrics.length > 0) {
+					currentLine.pairs.push({chord: currentChord, lyrics: currentLyrics});
+					currentLyrics = '';
 				}
-				else {
-					chordLyricsPairs.push({name: chordName, lyrics: ""});
-				}
+				currentChord = chordName;
 				
 				i += ret[0];
 			}
 			else {
 				switch (chordProText.charAt(i)) {
 					case '\n':
-						if (chordLyricsPairs.length > 0)
-						{
-							chordLyricsPairs[chordLyricsPairs.length - 1].endline = true;
-							chordLyricsPairs.push({name: "", lyrics: ""});
+						if (currentChord.length < 1 && currentLyrics === '%') {
+							// line with only % --> add as empty line
+							currentLyrics = ' ';
 						}
+						currentLine.pairs.push({chord: currentChord, lyrics: currentLyrics});
+						resultLines.push(currentLine);
+						currentLine = {hasChords: false, pairs: []};
+						currentChord = '';
+						currentLyrics = '';
 						break;
 					default:
-						if (chordLyricsPairs.length < 1)
-						{
-							chordLyricsPairs.push({name: "", lyrics: ""});
-						}
-						chordLyricsPairs[chordLyricsPairs.length - 1].lyrics += chordProText.charAt(i);
+						currentLyrics += chordProText.charAt(i);
 						break;
 				}
 				i++;
 			}
 		}
-		
-		return chordLyricsPairs;
+
+		if (currentLine.pairs.length > 0) {
+			resultLines.push(currentLine);
+		}
+
+		return resultLines;
 	}
 	
 	var addWords = function(line, words) {
