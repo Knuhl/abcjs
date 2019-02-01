@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <style>
+        #sidebar {
+            flex-direction: column;
+        }
+
+        #sidebar.show { display: flex; }
+
+        #sidebar textarea {
+            width: 100%;
+            flex-grow: 1;
+            height: 200px;
+        }
+
+        @media (max-height: 992px) {
+            #sidebar { max-height: none; }
+        }
+    </style>
+
+    <script src="../bin/abcjs_basic_5.6.3-min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            new ABCJS.Editor("abc",
+                {
+                    canvas_id: "paper",
+                    warnings_id: "warnings",
+                    abcjsParams: {
+                        responsive: "full-width"
+                    }
+                });
+        }
+
+    </script>
+    <title>Hello, world!</title>
+</head>
+<body class="h-100">
+
+<div class="w-100 h-100 bg-light d-flex flex-column flex-lg-row">
+    <div class="col-lg-3 bg-dark collapse show" id="sidebar">
+        <h3 class="text-white">Sidebar</h3>
+        <textarea id="abc">X: 1
+T: Cooley's
+M: 4/4
+L: 1/8
+R: reel
+K: Emin
+|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|
+EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|
+|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|
+eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
+</textarea>
+    </div>
+    <button class="btn btn-danger" data-toggle="collapse" data-target="#sidebar">v</button>
+    <div class="col-lg p-0 bg-white flex-grow-1">
+        <div class="bg-white" style="min-height: 200px;">
+            <h3>ABC</h3>
+            <div id="warnings"></div>
+            <div id="paper"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

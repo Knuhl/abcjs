@@ -108,7 +108,9 @@ Renderer.prototype.setPaperSize = function (maxwidth, scale, responsive) {
 	var parentStyles = { overflow: "hidden" };
 	if (responsive === 'resize') {
 		this.paper.setResponsiveWidth(w, h);
-	} else {
+	} else if (responsive === 'full-width') {
+        this.paper.setResponsiveFullWidth(w, h);
+    } else {
 		parentStyles.width = "";
 		parentStyles.height = h + "px";
 		if (scale < 1) {

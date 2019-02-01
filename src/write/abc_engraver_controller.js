@@ -118,7 +118,7 @@ EngraverController.prototype.getMeasureWidths = function(abcTune) {
 	}
 
 	var scale = abcTune.formatting.scale ? abcTune.formatting.scale : this.scale;
-	if (this.responsive === "resize") // The resizing will mess with the scaling, so just don't do it explicitly.
+	if (this.responsive === "resize" || this.responsive === "full-width") // The resizing will mess with the scaling, so just don't do it explicitly.
 		scale = undefined;
 	if (scale === undefined) scale = this.renderer.isPrint ? 0.75 : 1;
 	this.adjustNonScaledItems(scale);
@@ -177,7 +177,7 @@ EngraverController.prototype.engraveTune = function (abctune, tuneNumber) {
 	}
 
 	var scale = abctune.formatting.scale ? abctune.formatting.scale : this.scale;
-	if (this.responsive === "resize") // The resizing will mess with the scaling, so just don't do it explicitly.
+	if (this.responsive === "resize" || this.responsive === "full-width") // The resizing will mess with the scaling, so just don't do it explicitly.
 		scale = undefined;
 	if (scale === undefined) scale = this.renderer.isPrint ? 0.75 : 1;
 	this.adjustNonScaledItems(scale);

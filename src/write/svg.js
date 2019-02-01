@@ -71,6 +71,12 @@ Svg.prototype.setResponsiveWidth = function(w, h) {
 	}
 };
 
+Svg.prototype.setResponsiveFullWidth = function(w, h) {
+    this.svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    this.svg.removeAttribute("height");
+    this.svg.setAttribute("width", "100%");
+};
+
 Svg.prototype.setSize = function(w, h) {
 	this.svg.setAttribute('width', w);
 	this.svg.setAttribute('height', h);
