@@ -196,7 +196,8 @@ var parseDirective = {};
 		var decoration = "none";
 		var box = false;
 		var state = 'face';
-		var hyphenLast = false;
+        var hyphenLast = false;
+        var preserveWhitespace = false;
 		while (tokens.length) {
 			var currToken = tokens.shift();
 			var word = currToken.token.toLowerCase();
@@ -260,6 +261,8 @@ var parseDirective = {};
 						style = "italic";
 					else if (word === "underline")
 						decoration = "underline";
+                    else if (word === "wspre")
+                        preserveWhitespace = true;
 					else if (word === "box") {
 						if (fontTypeCanHaveBox[cmd])
 							box = true;
@@ -287,6 +290,7 @@ var parseDirective = {};
 		face = face.join(' ');
 		var psFont = fontTranslation(face);
 		var font = {};
+        font.preserveWhitespace = preserveWhitespace;
 		if (psFont) {
 			font.face = psFont.face;
 			font.weight = psFont.weight;
