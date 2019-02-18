@@ -481,8 +481,10 @@ var Parse = function() {
 							// line with only % --> add as empty line
 							currentLyrics = ' ';
 						}
-						currentLine.pairs.push({chord: currentChord, lyrics: currentLyrics});
-						resultLines.push(currentLine);
+                        if (currentChord.length > 0 || currentLyrics.length > 0)
+                            currentLine.pairs.push({ chord: currentChord, lyrics: currentLyrics });
+                        if (currentLine.pairs.length > 0)
+                            resultLines.push(currentLine);
 						currentLine = {hasChords: false, pairs: []};
 						currentChord = '';
 						currentLyrics = '';
@@ -493,10 +495,6 @@ var Parse = function() {
 				}
 				i++;
 			}
-		}
-
-		if (currentLine.pairs.length > 0) {
-			resultLines.push(currentLine);
 		}
 
 		return resultLines;
@@ -1722,9 +1720,9 @@ var Parse = function() {
 					}
 					else {
 						if (parseCommon.startsWith(line, "%%"))
-							multilineVars.chordProBlock += '\n' + line.substring(2);
+							multilineVars.chordProBlock += line.substring(2) + '\n';
 						else
-							multilineVars.chordProBlock += '\n' + line;
+							multilineVars.chordProBlock += line + '\n';
 					}
 				} else if (multilineVars.inPsBlock) {
 					if (parseCommon.startsWith(line, "%%endps")) {
