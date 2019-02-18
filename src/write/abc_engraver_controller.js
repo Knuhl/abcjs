@@ -241,7 +241,9 @@ EngraverController.prototype.engraveTune = function (abctune, tuneNumber) {
 		} else if (abcLine.chordPro !== undefined) {
 			this.renderer.outputChordPro(abcLine.chordPro);
 		} else if (abcLine.text !== undefined) {
-			this.renderer.outputFreeText(abcLine.text);
+			this.renderer.outputFreeText(abcLine.text, abcLine.vskip);
+		} else if (abcLine.separator !== undefined) {
+			this.renderer.outputSeparator(abcLine.separator);
 		}
 	}
 
